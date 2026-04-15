@@ -1,0 +1,34 @@
+name: "SOP 錄入表單"
+description: "新增一份標準作業程序 (SOP)"
+title: "[SOP] "
+labels: ["SOP"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        本表單為 POC 測試階段，送出後所有文件將統一寫入 `docs/sop/` 目錄。
+  - type: input
+    id: title
+    attributes:
+      label: "文件標題"
+    validations:
+      required: true
+  - type: dropdown
+    id: brand
+    attributes:
+      label: "廠牌/系統"
+      options:
+        - Dell
+        - Juniper
+        - Cisco
+        - Proxmox
+        - VMware
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: "SOP 內文"
+    validations:
+      required: true
