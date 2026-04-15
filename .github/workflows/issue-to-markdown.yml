@@ -20,18 +20,24 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const body = context.payload.issue.body;
             
+            // 1. 直接抓取 Issue 原生標題 (例如 "[SOP] Dell 伺服器重開機")
+            const rawTitle = context.payload.issue.title;
+            // 把開頭的 "[SOP] " 清理掉，只留下真正的標題
+            const title = rawTitle.replace(/^\[SOP\]\s*/i, '').trim();
+            
+            // 2. 抓取表單內文
+            const body = context.payload.issue.body;
             const getField = (fieldName) => {
               const regex = new RegExp(`### ${fieldName}\\s+([\\s\\S]*?)(?=###|$)`, 'i');
               const match = body.match(regex);
               return match ? match[1].trim() : '';
             };
 
-            const title = getField('文件標題');
             const brand = getField('廠牌/系統');
             const content = getField('SOP 內文');
             
+            // 組裝 YAML
             const fileContent = `---
             title: "${title}"
             brand: "${brand}"
@@ -42,6 +48,7 @@ jobs:
             `;
             
             const targetDir = 'docs/sop';
+            // 檔名使用清理過的標題
             const safeTitle = title.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
             const fileName = `${targetDir}/${new Date().toISOString().split('T')[0]}-${safeTitle}.md`;
             
