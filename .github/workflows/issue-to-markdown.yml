@@ -9,10 +9,9 @@ permissions:
 
 jobs:
   generate-markdown:
-    if: contains(github.event.issue.labels.*.name, 'SOP')
     runs-on: ubuntu-22.04
         # 【關鍵防護】只有陣列中的 GitHub 帳號觸發，才會執行此 Job
-    if: contains(fromJson('["ttestter71", "ttestter74", "預計測試的同事帳號"]'), github.actor)
+    if: contains(github.event.issue.labels.*.name, 'SOP') && contains(fromJson('["ttestter71", "ttestter74", "預計測試的同事帳號"]'), github.actor)
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
