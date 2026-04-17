@@ -1,4 +1,4 @@
-<img width="1170" height="780" alt="image" src="https://github.com/user-attachments/assets/2a5850ce-cae0-4e51-8d07-372db30dd9d1" />---
+---
 title: "KM_POC_v2 testing1"
 brand: "Proxmox"
 date: "2026-04-15"
